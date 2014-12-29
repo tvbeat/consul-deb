@@ -10,6 +10,21 @@
 # IP address of eth0.
 #BIND=0.0.0.0
 
+# The CONFIG_DIR variable can be used to change the location
+# where Consul reads json configuration files from. It
+# defaults to the following location.
+CONFIG_DIR=/etc/consul.d
+
+# The LOG_FILE variable can be used to change the location
+# where Consul stdout and stderr will be written to. It
+# defaults to the following location.
+LOG_FILE=/var/log/consul/consul.log
+
+# The DATA_DIR variable can be used to change the location
+# where Consul will store persistent data. This should be
+# a location that is durable across reboots.
+DATA_DIR=/var/lib/consul
+
 # Additional flags can be passed to the consul agent. It is
 # however preferable to edit configuration files under
 # /etc/consul.d instead.
