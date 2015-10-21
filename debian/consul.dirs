@@ -1,2 +1,3 @@
-/var/lib/consul
 /var/log/consul
+/var/lib/consul
+/etc/consul.d

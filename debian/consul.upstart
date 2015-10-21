@@ -8,10 +8,10 @@ setgid consul
 
 respawn
 
-script
-  # Make sure to use all our CPUs, because Consul can block a scheduler thread
-  export GOMAXPROCS=`nproc`
+setuid consul
+setuid consul
 
+script
   # Allow overriding env vars in /etc/default/consul
   if [ -f "/etc/default/consul" ]; then
     . /etc/default/consul
