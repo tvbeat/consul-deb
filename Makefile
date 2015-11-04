@@ -33,7 +33,7 @@ build: build_src
 	--buildresult buildresult
 
 build_src: prepare_src 
-	cd $(PKG_DIR) && debuild -S
+	cd $(PKG_DIR) && debuild -i -us -uc -S
 
 prepare_src: $(SRC_DIR) get_current_version create_upstream_tarball
 	rsync -qav --delete debian/ $(PKG_DIR)/debian
@@ -56,7 +56,7 @@ create_upstream_tarball: get_new_version
 	fi
 
 $(SRC_DIR):
-	git clone https://github.com/hashicorp/consul.git $(SRC_DIR)
+	git clone https://github.com/tvbeat/consul.git $(SRC_DIR)
 
 get_current_version:
 	$(eval CURRENT_VERSION = $(shell test -f debian/changelog && \
@@ -68,9 +68,9 @@ get_new_version:
 	$(eval LATEST_TAG = $(shell if [ -z "$(VERSION)" ]; then \
 			cd $(SRC_DIR) && git tag | tail -n1; \
 		else \
-			echo "v$(VERSION)"; \
+			echo "$(VERSION)"; \
 		fi))
-	cd $(SRC_DIR) && git checkout tags/$(LATEST_TAG)
+	cd $(SRC_DIR) && git checkout $(LATEST_TAG)
 	$(eval VERSION = $(subst v,,$(LATEST_TAG))$(MODIFIER))
 	$(eval PKG_DIR = $(BASE_DIR)/consul-$(VERSION))
 	@echo "--> New package version: $(VERSION)-$(REVISION)"
